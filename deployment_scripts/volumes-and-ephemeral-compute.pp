@@ -21,10 +21,16 @@ service { "$nova::params::compute_service_name":
   ensure => running,
 }
 
-package { 'ceph-client-package':
-  ensure => installed,
-  name   => 'ceph',
+
+service { "libvirt":
+  enable => true,
+  ensure => running,
 }
+#
+#package { 'ceph-client-package':
+#  ensure => installed,
+#  name   => 'ceph',
+#}
 
 class { 'nova::compute::rbd':
   libvirt_rbd_user        => $nova_user,
